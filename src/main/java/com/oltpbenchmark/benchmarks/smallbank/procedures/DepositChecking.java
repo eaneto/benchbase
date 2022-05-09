@@ -47,6 +47,11 @@ public class DepositChecking extends Procedure {
                     " WHERE name = ?"
     );
 
+    public final SQLStmt GetCheckingBalance = new SQLStmt(
+            "SELECT bal FROM " + SmallBankConstants.TABLENAME_CHECKING +
+                    " WHERE custid = ? FOR UPDATE"
+    );
+
     public final SQLStmt UpdateCheckingBalance = new SQLStmt(
             "UPDATE " + SmallBankConstants.TABLENAME_CHECKING +
                     "   SET bal = bal + ? " +
@@ -65,6 +70,17 @@ public class DepositChecking extends Procedure {
                     throw new UserAbortException(msg);
                 }
                 custId = r0.getLong(1);
+            }
+        }
+
+        try (PreparedStatement balStmt1 = this.getPreparedStatement(conn, GetCheckingBalance, custId)) {
+            try (ResultSet balRes1 = balStmt1.executeQuery()) {
+                if (!balRes1.next()) {
+                    String msg = String.format("No %s for customer #%d",
+                            SmallBankConstants.TABLENAME_CHECKING,
+                            custId);
+                    throw new UserAbortException(msg);
+                }
             }
         }
 

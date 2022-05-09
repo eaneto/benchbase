@@ -53,23 +53,17 @@ public class Amalgamate extends Procedure {
 
     public final SQLStmt GetSavingsBalance = new SQLStmt(
             "SELECT bal FROM " + SmallBankConstants.TABLENAME_SAVINGS +
-                    " WHERE custid = ?"
+                    " WHERE custid = ? FOR UPDATE"
     );
 
     public final SQLStmt GetCheckingBalance = new SQLStmt(
             "SELECT bal FROM " + SmallBankConstants.TABLENAME_CHECKING +
-                    " WHERE custid = ?"
+                    " WHERE custid = ? FOR UPDATE"
     );
 
     public final SQLStmt UpdateSavingsBalance = new SQLStmt(
             "UPDATE " + SmallBankConstants.TABLENAME_SAVINGS +
                     "   SET bal = bal - ? " +
-                    " WHERE custid = ?"
-    );
-
-    public final SQLStmt UpdateCheckingBalance = new SQLStmt(
-            "UPDATE " + SmallBankConstants.TABLENAME_CHECKING +
-                    "   SET bal = bal + ? " +
                     " WHERE custid = ?"
     );
 

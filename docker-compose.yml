@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  database:
+    image: postgres:latest
+    container_name: benchbase_postgres
+    hostname: benchbase_postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: benchbase
+    ports:
+      - 5432:5432
+    networks:
+      - postgres-network
+
+networks:
+  postgres-network:
+    driver: bridge

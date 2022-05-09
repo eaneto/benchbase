@@ -49,12 +49,12 @@ public class WriteCheck extends Procedure {
 
     public final SQLStmt GetSavingsBalance = new SQLStmt(
             "SELECT bal FROM " + SmallBankConstants.TABLENAME_SAVINGS +
-                    " WHERE custid = ?"
+                    " WHERE custid = ? FOR UPDATE"
     );
 
     public final SQLStmt GetCheckingBalance = new SQLStmt(
             "SELECT bal FROM " + SmallBankConstants.TABLENAME_CHECKING +
-                    " WHERE custid = ?"
+                    " WHERE custid = ? FOR UPDATE"
     );
 
     public final SQLStmt UpdateCheckingBalance = new SQLStmt(
